@@ -2,7 +2,11 @@ import React from "react";
 import "./Cell.scss";
 
 const Cell = ({ value }) => {
-  return <div className="Cell">{value}</div>;
+  const divStyle = {
+    backgroundColor: `rgba(${value}, 0, 0, 1)`
+  };
+
+  return <div className="Cell" style={divStyle}></div>;
 };
 
 export default Cell;

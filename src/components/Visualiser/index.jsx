@@ -45,26 +45,7 @@ class Visualiser extends React.Component {
       });
 
       this.setState({ values });
-      /*
-        let sum = 0;
-        const startElement = i * elementsCount;
-        const lastElement =
-          (i + 1) * elementsCount - 1 < 1024
-            ? (i + 1) * elementsCount - 1
-            : 1023;
-
-        for (let j = startElement; j < lastElement; j++) {
-          sum += this.dataArray[i];
-        }
-
-        const average = sum / elementsCount;
-
-        values.push(average);*/
-      //= (this.dataArray.length / 144).ceil;
-      //console.log(values);
-      // console.log(this.audioRef.current.currentTime);
-      //this.setState({ level: this.state.level + 1 });
-    }, 200);
+    }, 100);
   }
 
   render() {
