@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1d4f4db143f80f3436e4191b41e37741",
+    "revision": "c4e3273a242975f1cf4a1caddcdb20ee",
     "url": "/audiovisualisator/index.html"
   },
   {
-    "revision": "8ac0e79008e97161eae8",
-    "url": "/audiovisualisator/static/css/main.915a5e6b.chunk.css"
+    "revision": "1ab93aff7aa4029882f3",
+    "url": "/audiovisualisator/static/css/main.76d8c7a8.chunk.css"
   },
   {
     "revision": "9ebed7615adbc2154e84",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/audiovisualisator/static/js/2.2e0d7542.chunk.js.LICENSE"
   },
   {
-    "revision": "8ac0e79008e97161eae8",
-    "url": "/audiovisualisator/static/js/main.09d59dcb.chunk.js"
+    "revision": "1ab93aff7aa4029882f3",
+    "url": "/audiovisualisator/static/js/main.50df2c5c.chunk.js"
   },
   {
     "revision": "b403c0617d3e338651a9",

@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/audiovisualisator/static/css/main.915a5e6b.chunk.css",
-    "main.js": "/audiovisualisator/static/js/main.09d59dcb.chunk.js",
-    "main.js.map": "/audiovisualisator/static/js/main.09d59dcb.chunk.js.map",
+    "main.css": "/audiovisualisator/static/css/main.76d8c7a8.chunk.css",
+    "main.js": "/audiovisualisator/static/js/main.50df2c5c.chunk.js",
+    "main.js.map": "/audiovisualisator/static/js/main.50df2c5c.chunk.js.map",
     "runtime-main.js": "/audiovisualisator/static/js/runtime-main.846f1e2c.js",
     "runtime-main.js.map": "/audiovisualisator/static/js/runtime-main.846f1e2c.js.map",
     "static/js/2.2e0d7542.chunk.js": "/audiovisualisator/static/js/2.2e0d7542.chunk.js",
     "static/js/2.2e0d7542.chunk.js.map": "/audiovisualisator/static/js/2.2e0d7542.chunk.js.map",
     "index.html": "/audiovisualisator/index.html",
-    "precache-manifest.40290f816695f773669211b0e9b3f5cf.js": "/audiovisualisator/precache-manifest.40290f816695f773669211b0e9b3f5cf.js",
+    "precache-manifest.4400b3c44952deb8a9c514c7672f9674.js": "/audiovisualisator/precache-manifest.4400b3c44952deb8a9c514c7672f9674.js",
     "service-worker.js": "/audiovisualisator/service-worker.js",
-    "static/css/main.915a5e6b.chunk.css.map": "/audiovisualisator/static/css/main.915a5e6b.chunk.css.map",
+    "static/css/main.76d8c7a8.chunk.css.map": "/audiovisualisator/static/css/main.76d8c7a8.chunk.css.map",
     "static/js/2.2e0d7542.chunk.js.LICENSE": "/audiovisualisator/static/js/2.2e0d7542.chunk.js.LICENSE",
     "static/media/song.mp3": "/audiovisualisator/static/media/song.43051082.mp3"
   },
   "entrypoints": [
     "static/js/runtime-main.846f1e2c.js",
     "static/js/2.2e0d7542.chunk.js",
-    "static/css/main.915a5e6b.chunk.css",
-    "static/js/main.09d59dcb.chunk.js"
+    "static/css/main.76d8c7a8.chunk.css",
+    "static/js/main.50df2c5c.chunk.js"
   ]
 }
