@@ -1,8 +1,8 @@
 import React from "react";
 import "./Cell.scss";
 
-const Cell = level => {
-  return <div className="Cell"></div>;
+const Cell = ({ value }) => {
+  return <div className="Cell">{value}</div>;
 };
 
 export default Cell;

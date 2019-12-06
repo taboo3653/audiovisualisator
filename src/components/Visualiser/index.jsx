@@ -7,50 +7,10 @@ class Visualiser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      level: 0
+      values: []
     };
     this.audioRef = React.createRef();
   }
-
-  createFilter = frequency => {
-    var filter = this.audioContext.createBiquadFilter();
-
-    filter.type = "peaking"; // тип фильтра
-    filter.frequency.value = frequency; // частота
-    filter.Q.value = 1; // Q-factor
-    filter.gain.value = 0;
-
-    return filter;
-  };
-
-  createFilters = () => {
-    const frequencies = [
-      60,
-      170,
-      310,
-      600,
-      1000,
-      3000,
-      6000,
-      12000,
-      14000,
-      16000
-    ];
-    let filters;
-
-    // создаем фильтры
-    filters = frequencies.map(this.createFilter);
-
-    // цепляем их последовательно.
-    // Каждый фильтр, кроме первого, соединяется с предыдущим.
-    // Удачно, что reduce без начального значения как раз пропускает первый элемент.
-    filters.reduce(function(prev, curr) {
-      prev.connect(curr);
-      return curr;
-    });
-
-    return filters;
-  };
 
   componentDidMount() {
     this.audioContext = new (window.AudioContext ||
@@ -64,28 +24,68 @@ class Visualiser extends React.Component {
     this.source.connect(this.analyser);
 
     setInterval(() => {
-      // console.log(this.dataArray);
+      this.analyser.getByteTimeDomainData(this.dataArray);
+
+      const subArraySize = Math.floor(this.dataArray.length / 144);
+      const subArrays = [];
+
+      for (let i = 0; i < 144; i++) {
+        subArrays[i] = this.dataArray.slice(
+          i * subArraySize,
+          i * subArraySize + subArraySize
+        );
+      }
+
+      const values = subArrays.map(item => {
+        const sum = item.reduce((accumulator, currentValue) => {
+          return accumulator + currentValue;
+        }, 0);
+
+        return Math.round(sum / item.length);
+      });
+
+      this.setState({ values });
+      /*
+        let sum = 0;
+        const startElement = i * elementsCount;
+        const lastElement =
+          (i + 1) * elementsCount - 1 < 1024
+            ? (i + 1) * elementsCount - 1
+            : 1023;
+
+        for (let j = startElement; j < lastElement; j++) {
+          sum += this.dataArray[i];
+        }
+
+        const average = sum / elementsCount;
+
+        values.push(average);*/
+      //= (this.dataArray.length / 144).ceil;
+      //console.log(values);
+      // console.log(this.audioRef.current.currentTime);
       //this.setState({ level: this.state.level + 1 });
-    }, 1000);
+    }, 200);
   }
 
   render() {
-    const cells = [];
+    const { values } = this.state;
 
-    for (let i = 0; i < 144; i++) {
+    const cells = values.map((item, index) => {
+      return <Cell key={index} value={item} />;
+    });
+    /* for (let i = 0; i < this.dataArray; i++) {
       cells.push(<Cell key={i} />);
-    }
+    }*/
 
     return (
-      <div>
-        <audio ref={this.audioRef} src={audioFile} controls />
-      </div>
-      /*
-      <div
-        className="Visualiser"
-      >
-        {cells}
-      </div>*/
+      <>
+        <div>
+          <audio ref={this.audioRef} src={audioFile} autoPlay />
+          <audio src={audioFile} autoPlay />
+        </div>
+
+        <div className="Visualiser">{cells}</div>
+      </>
     );
   }
 }
