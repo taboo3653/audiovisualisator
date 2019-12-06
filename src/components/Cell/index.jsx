@@ -2,6 +2,7 @@ import React from "react";
 import "./Cell.scss";
 
 const Cell = ({ value }) => {
+  console.log(value);
   const divStyle = {
     backgroundColor: `rgba(${value}, 0, 0, 1)`
   };

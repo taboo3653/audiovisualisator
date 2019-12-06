@@ -1,6 +1,7 @@
 import React from "react";
 import "./Visualizer.scss";
 import Cell from "../Cell";
+import Button from "../Button";
 import audioFile from "../../assets/audio/song.mp3";
 
 class Visualizer extends React.Component {
@@ -10,9 +11,10 @@ class Visualizer extends React.Component {
       values: []
     };
     this.audioRef = React.createRef();
+    this.soundingAudioRef = React.createRef();
   }
 
-  componentDidMount() {
+  createAudioAnalizer() {
     this.audioContext = new (window.AudioContext ||
       window.webkitAudioContext)();
     this.analyser = this.audioContext.createAnalyser();
@@ -48,6 +50,12 @@ class Visualizer extends React.Component {
     }, 100);
   }
 
+  handlePlayClick = () => {
+    this.createAudioAnalizer();
+    this.audioRef.current.play();
+    this.soundingAudioRef.current.play();
+  };
+
   render() {
     const { values } = this.state;
 
@@ -60,12 +68,13 @@ class Visualizer extends React.Component {
 
     return (
       <>
-        <div>
-          <audio ref={this.audioRef} src={audioFile} autoPlay />
-          <audio src={audioFile} autoPlay />
-        </div>
+        <audio ref={this.audioRef} src={audioFile} />
+        <audio ref={this.soundingAudioRef} src={audioFile} />
 
-        <div className="Visualizer">{cells}</div>
+        <Button text="Play" onClick={this.handlePlayClick} />
+        <div className="Visualizer" onClick={this.handlePlayClick}>
+          {cells}
+        </div>
       </>
     );
   }
