@@ -1,9 +1,9 @@
 import React from "react";
-import "./Visualiser.scss";
+import "./Visualizer.scss";
 import Cell from "../Cell";
 import audioFile from "../../assets/audio/song.mp3";
 
-class Visualiser extends React.Component {
+class Visualizer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,10 +65,10 @@ class Visualiser extends React.Component {
           <audio src={audioFile} autoPlay />
         </div>
 
-        <div className="Visualiser">{cells}</div>
+        <div className="Visualizer">{cells}</div>
       </>
     );
   }
 }
 
-export default Visualiser;
+export default Visualizer;

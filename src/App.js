@@ -1,5 +1,5 @@
 import React from "react";
-import Visuliser from "./components/Visualiser";
+import Visuliser from "./components/Visualizer";
 import "./App.scss";
 
 function App() {
