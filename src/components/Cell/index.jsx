@@ -7,7 +7,12 @@ const Cell = ({ value, theme }) => {
   let backgroundColor;
   switch (theme) {
     case ColorEnum.RED:
-      backgroundColor = `rgba(${value},0, 0, 1)`;
+      if (value < 128)
+        backgroundColor = `rgba(${value * 2},${value * 2}, 0, 1)`;
+      else {
+        if (value * 2 - 255 > 240) console.log(value * 2 - 255);
+        backgroundColor = `rgba(255,${value * 2 - 255}, 0, 1)`;
+      }
       break;
     case ColorEnum.GREEN:
       backgroundColor = `rgba(0, ${value}, 0, 1)`;
@@ -16,7 +21,12 @@ const Cell = ({ value, theme }) => {
       backgroundColor = `rgba(0, 0, ${value}, 1)`;
       break;
     default:
-      backgroundColor = `rgba(${value}, 0, 0, 1)`;
+      if (value < 128)
+        backgroundColor = `rgba(${value * 2},${value * 2}, 0, 1)`;
+      else {
+        if (value * 2 - 255 > 240) console.log(value * 2 - 255);
+        backgroundColor = `rgba(255,${value * 2 - 255}, 0, 1)`;
+      }
   }
 
   const divStyle = {

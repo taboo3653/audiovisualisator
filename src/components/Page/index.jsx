@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React from 'react';
-import ThemeSwitcher from 'components/ThemeSwitcher';
+import Switcher from 'components/Switcher';
 import Visuliser from 'components/Visualizer';
 import Button from 'components/Button';
+import { ColorEnum, SizeEnum } from 'utils/values';
+
 import audioFile from '../../assets/audio/song1.mp3';
 import './Page.scss';
 
@@ -10,7 +12,8 @@ class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      theme: 0,
+      theme: ColorEnum.RED,
+      size: SizeEnum.SIZE1,
       values: [],
     };
     this.audioRef = React.createRef();
@@ -21,19 +24,23 @@ class Page extends React.Component {
     this.setState({ theme });
   };
 
+  handleSizeSwitcher = size => {
+    this.setState({ size });
+  };
+
   handlePlayClick = play => {
     this.createAudioAnalizer();
     this.audioRef.current.play();
-    //this.soundingAudioRef.current.play();
+    // this.soundingAudioRef.current.play();
   };
 
   createAudioAnalizer() {
     this.audioContext = new (window.AudioContext ||
       window.webkitAudioContext)();
     this.analyser = this.audioContext.createAnalyser();
-    this.analyser.smoothingTimeConstant = 0.1;
+    this.analyser.smoothingTimeConstant = 0.2;
 
-    this.analyser.fftSize = 1024;
+    this.analyser.fftSize = 512;
     this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
 
     this.source = this.audioContext.createMediaElementSource(
@@ -45,9 +52,7 @@ class Page extends React.Component {
 
     setInterval(() => {
       this.analyser.getByteFrequencyData(this.dataArray);
-      //const values = [...this.dataArray];
-
-      console.log(this.dataArray);
+      // const values = [...this.dataArray];
 
       const subArraySize = Math.floor(this.dataArray.length / 144);
       const subArrays = [];
@@ -68,22 +73,36 @@ class Page extends React.Component {
       });
 
       this.setState({ values });
-    }, 100);
+    }, 70);
   }
 
   render() {
-    const { theme, values } = this.state;
+    const { theme, values, size } = this.state;
     return (
       <>
         <audio ref={this.audioRef} src={audioFile} />
-        {/* <audio ref={this.soundingAudioRef} src={audioFile} />*/}
+        {/* <audio ref={this.soundingAudioRef} src={audioFile} /> */}
 
         <div className="Page">
           <div className="Page__controlElements">
             <Button text="Play" onClick={this.handlePlayClick} />
-            <ThemeSwitcher
-              handleThemeSwitcher={this.handleThemeSwitcher}
-              handlePlayClick={this.handlePlayClick}
+            <Switcher
+              active={size}
+              values={[
+                SizeEnum.SIZE1,
+                SizeEnum.SIZE2,
+                SizeEnum.SIZE3,
+              ]}
+              handleSwitcher={this.handleSizeSwitcher}
+            />
+            <Switcher
+              active={theme}
+              values={[
+                ColorEnum.RED,
+                ColorEnum.GREEN,
+                ColorEnum.BLUE,
+              ]}
+              handleSwitcher={this.handleThemeSwitcher}
             />
           </div>
 
