@@ -1,7 +1,12 @@
-import React from "react";
+import React from 'react';
+import ButtonBS from 'react-bootstrap/Button';
 
 const Button = ({ text, onClick }) => {
-  return <button onClick={onClick}>{text}</button>;
+  return (
+    <ButtonBS variant="primary" onClick={onClick}>
+      {text}
+    </ButtonBS>
+  );
 };
 
 export default Button;

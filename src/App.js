@@ -1,11 +1,14 @@
-import React from "react";
-import Visuliser from "./components/Visualizer";
-import "./App.scss";
+import React from 'react';
+import Page from './components/Page';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import './App.scss';
 
 function App() {
   return (
     <div className="App">
-      <Visuliser />
+      <Page />
     </div>
   );
 }
