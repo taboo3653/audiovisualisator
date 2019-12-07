@@ -36,11 +36,8 @@ module.exports = {
         test: /\.(sc|sa|c)ss$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: './',
-              hmr: process.env.NODE_ENV === 'development',
-            },
+            loader: 'style-loader',
+            options: { injectType: 'singletonStyleTag' },
           },
           {
             loader: 'css-loader',
