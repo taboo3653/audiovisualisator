@@ -1,7 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+/* const WebpackShellPlugin = require('webpack-shell-plugin'); */
+
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -66,7 +68,7 @@ module.exports = {
             },
           },
         ],
-      },
+      } /*
       {
         test: /\.(svg|png|jpg|gif|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: [
@@ -78,10 +80,12 @@ module.exports = {
             },
           },
         ],
-      },
+      }, */,
       {
         test: /\.mp3$/,
-        use: [
+        use: 'base64-inline-loader?name=[name].[ext]',
+
+        /* use: [
           {
             loader: 'file-loader',
             options: {
@@ -89,19 +93,16 @@ module.exports = {
               outputPath: 'audio/',
             },
           },
-        ],
+        ], */
       },
     ],
   },
   plugins: [
+    /* new WebpackShellPlugin({ onBuildEnd: ['rm dist/*.js'] }), */
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
-      ignoreOrder: false,
-    }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
+      inlineSource: '.js$',
       minify: {
         collapseWhitespace: true,
         removeScriptTypeAttributes: true,
@@ -110,5 +111,7 @@ module.exports = {
         removeRedundantAttributes: true,
       },
     }),
+
+    new HtmlWebpackInlineSourcePlugin(),
   ],
 };
