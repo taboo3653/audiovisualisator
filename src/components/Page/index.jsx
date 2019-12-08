@@ -48,7 +48,7 @@ class Page extends React.Component {
     this.setState({ isPlayed });
   };
 
-  play = play => {
+  play = () => {
     if (!this.audioAnalyser) {
       this.audioAnalyser = new AudioAnalyser(this.audioRef.current);
     }
@@ -126,6 +126,7 @@ class Page extends React.Component {
               active={outputMethod}
               values={[OutputMethodEnum.CANVAS, OutputMethodEnum.DIV]}
               handleSwitcher={this.handleOutputMethodSwitcher}
+              theme={theme}
             />
             <Switcher
               active={size}
@@ -135,11 +136,13 @@ class Page extends React.Component {
                 SizeEnum.SIZE3,
               ]}
               handleSwitcher={this.handleSizeSwitcher}
+              theme={theme}
             />
             <Switcher
               active={theme}
               values={[ColorEnum.RED, ColorEnum.BLUE]}
               handleSwitcher={this.handleThemeSwitcher}
+              theme={theme}
             />
           </div>
           <div className="Page__field">{visualizer}</div>

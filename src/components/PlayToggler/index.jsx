@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const PlayToggler = ({ handlePlayClick, isPlayed }) => {
   return isPlayed ? (
     <Button
-      variant="light"
+      variant="secondary"
       text="Pause"
       onClick={() => handlePlayClick(false)}
     />

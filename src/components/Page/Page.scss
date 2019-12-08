@@ -16,7 +16,11 @@
   &__controlElements {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-around;
+    border: 1px solid #d6d8db;
+    box-shadow: 0 10px 10px 0 rgba(90, 116, 148, 0.4);
+    border-radius: 0.25rem;
+    padding: 30px;
 
     margin: 20px 0px;
   }
