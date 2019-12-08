@@ -12,11 +12,8 @@ class VisualizerCanvas extends React.Component {
     this.blockSize = 50;
   }
 
-  componentDidUpdate(prevProps) {
-    const { theme, values, size } = prevProps;
-
-    this.canvasRef.current.width = size.x * this.blockSize;
-    this.canvasRef.current.height = size.y * this.blockSize;
+  componentDidUpdate() {
+    const { theme, values } = this.props;
 
     this.drawBars(values, theme);
   }
@@ -53,12 +50,13 @@ class VisualizerCanvas extends React.Component {
   };
 
   render() {
+    const { size } = this.props;
     return (
       <canvas
+        width={size.x * this.blockSize}
+        height={size.y * this.blockSize}
         className="canvas"
         ref={this.canvasRef}
-        width={800}
-        height={450}
       />
     );
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import colorGenerator from 'utils/colorGenerator';
+import PropTypes from 'prop-types';
 
 import './Cell.scss';
 
@@ -13,6 +14,11 @@ const Cell = ({ theme, value }) => {
       {' '}
     </div>
   );
+};
+
+Cell.propTypes = {
+  theme: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 export default Cell;
