@@ -2,8 +2,12 @@ import Size from 'utils/Size';
 
 export const ColorEnum = {
   RED: 'Red/Yellow',
-  GREEN: 'Green',
-  BLUE: 'Blue',
+  BLUE: 'Blue/Sea',
+};
+
+export const OutputMethodEnum = {
+  CANVAS: 'Canvas',
+  DIV: 'Div',
 };
 
 export const SizeEnum = {

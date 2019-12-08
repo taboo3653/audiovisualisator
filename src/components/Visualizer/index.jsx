@@ -10,20 +10,16 @@ const Visualizer = ({ theme, values, size }) => {
     // eslint-disable-next-line react/no-array-index-key
     return <Cell key={index} value={item} theme={theme} />;
   });
-  /* for (let i = 0; i < this.dataArray; i++) {
-      cells.push(<Cell key={i} />);
-    } */
 
   return (
-    <div className={`Visualizer Visualizer_${size.toString()}`}>
-      {cells}
-    </div>
+    <div className={`Visualizer Visualizer_${size}`}>{cells}</div>
   );
 };
 
 Visualizer.propTypes = {
-  theme: PropTypes.number.isRequired,
+  theme: PropTypes.string.isRequired,
   values: PropTypes.arrayOf(PropTypes.number).isRequired,
+  size: PropTypes.string.isRequired,
 };
 
 export default Visualizer;

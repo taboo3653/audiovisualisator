@@ -6,24 +6,23 @@ const colorGenerator = (theme, intensity) => {
   switch (theme) {
     case ColorEnum.RED:
       if (intensity < 128)
-        color = `rgba(${intensity * 2},${intensity * 2}, 0, 1)`;
-      else {
-        color = `rgba(255,${intensity * 2 - 255}, 0, 1)`;
-      }
+        color = `rgb(${intensity * 2},${intensity * 2}, 0)`;
+      else color = `rgb(255,${intensity * 2 - 255}, 0)`;
       break;
-    case ColorEnum.GREEN:
-      color = `rgba(0, ${intensity}, 0, 1)`;
-      break;
+
     case ColorEnum.BLUE:
-      color = `rgba(0, 0, ${intensity}, 1)`;
+      if (intensity < 128)
+        color = `rgb(0,${intensity * 2}, ${intensity * 2})`;
+      else color = `rgb(0, ${intensity * 2 - 255},255)`;
       break;
+
     default:
       if (intensity < 128)
-        color = `rgba(${intensity * 2},${intensity * 2}, 0, 1)`;
+        color = `rgb(${intensity * 2},${intensity * 2}, 0)`;
       else {
         if (intensity * 2 - 255 > 240)
           console.log(intensity * 2 - 255);
-        color = `rgba(255,${intensity * 2 - 255}, 0, 1)`;
+        color = `rgb(255,${intensity * 2 - 255}, 0)`;
       }
   }
 

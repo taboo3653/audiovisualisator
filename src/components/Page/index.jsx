@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React from 'react';
 import Switcher from 'components/Switcher';
-import Visuliser from 'components/Visualizer';
-import Button from 'components/Button';
+import Visulizer from 'components/Visualizer';
+import VisulizerCanvas from 'components/VisualizerCanvas';
+
 import PlayToggler from 'components/PlayToggler';
-import { ColorEnum, SizeEnum } from 'utils/values';
+import { ColorEnum, SizeEnum, OutputMethodEnum } from 'utils/values';
 import AudioAnalyser from 'utils/AudioAnalyser';
 
 import audioFile from '../../assets/audio/song2.mp3';
@@ -14,6 +15,7 @@ class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      outputMethod: OutputMethodEnum.CANVAS,
       theme: ColorEnum.RED,
       size: SizeEnum.SIZE1,
       isPlayed: false,
@@ -36,6 +38,10 @@ class Page extends React.Component {
 
   handleSizeSwitcher = size => {
     this.setState({ size });
+  };
+
+  handleOutputMethodSwitcher = outputMethod => {
+    this.setState({ outputMethod });
   };
 
   handlePlayClick = isPlayed => {
@@ -66,7 +72,46 @@ class Page extends React.Component {
   };
 
   render() {
-    const { theme, values, size, isPlayed } = this.state;
+    const {
+      theme,
+      values,
+      size,
+      isPlayed,
+      outputMethod,
+    } = this.state;
+
+    let visualizer;
+
+    switch (outputMethod) {
+      case OutputMethodEnum.CANVAS:
+        visualizer = (
+          <VisulizerCanvas
+            theme={theme}
+            values={values}
+            size={size}
+          />
+        );
+        break;
+      case OutputMethodEnum.DIV:
+        visualizer = (
+          <Visulizer
+            theme={theme}
+            values={values}
+            size={size.toString()}
+          />
+        );
+        break;
+      default:
+        visualizer = (
+          <VisulizerCanvas
+            theme={theme}
+            values={values}
+            size={size}
+          />
+        );
+        break;
+    }
+
     return (
       <>
         <audio ref={this.audioRef} src={audioFile} />
@@ -76,6 +121,11 @@ class Page extends React.Component {
             <PlayToggler
               handlePlayClick={this.handlePlayClick}
               isPlayed={isPlayed}
+            />
+            <Switcher
+              active={outputMethod}
+              values={[OutputMethodEnum.CANVAS, OutputMethodEnum.DIV]}
+              handleSwitcher={this.handleOutputMethodSwitcher}
             />
             <Switcher
               active={size}
@@ -88,16 +138,11 @@ class Page extends React.Component {
             />
             <Switcher
               active={theme}
-              values={[
-                ColorEnum.RED,
-                ColorEnum.GREEN,
-                ColorEnum.BLUE,
-              ]}
+              values={[ColorEnum.RED, ColorEnum.BLUE]}
               handleSwitcher={this.handleThemeSwitcher}
             />
           </div>
-
-          <Visuliser theme={theme} values={values} size={size} />
+          <div className="Page__field">{visualizer}</div>
         </div>
       </>
     );
