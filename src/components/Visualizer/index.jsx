@@ -5,7 +5,7 @@ import Cell from '../Cell';
 
 import './Visualizer.scss';
 
-const Visualizer = ({ theme, values }) => {
+const Visualizer = ({ theme, values, size }) => {
   const cells = values.map((item, index) => {
     // eslint-disable-next-line react/no-array-index-key
     return <Cell key={index} value={item} theme={theme} />;
@@ -14,7 +14,11 @@ const Visualizer = ({ theme, values }) => {
       cells.push(<Cell key={i} />);
     } */
 
-  return <div className="Visualizer">{cells}</div>;
+  return (
+    <div className={`Visualizer Visualizer_${size.toString()}`}>
+      {cells}
+    </div>
+  );
 };
 
 Visualizer.propTypes = {

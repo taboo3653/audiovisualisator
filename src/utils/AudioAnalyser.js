@@ -16,10 +16,12 @@ class AudioAnalyser {
     this.source.connect(this.analyser);
   }
 
-  getByteFrequencyData = () => {
+  getByteFrequencyData = size => {
     this.analyser.getByteFrequencyData(this.dataArray);
 
-    return arrayValueAverager(this.dataArray, 144);
+    const slicedArray = this.dataArray.slice(0, 160);
+
+    return arrayValueAverager(slicedArray, size);
   };
 }
 

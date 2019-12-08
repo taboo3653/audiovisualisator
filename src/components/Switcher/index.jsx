@@ -2,7 +2,6 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { ColorEnum } from 'utils/values';
 
 const Switcher = ({ handleSwitcher, active, values }) => {
   return (
@@ -16,7 +15,7 @@ const Switcher = ({ handleSwitcher, active, values }) => {
             handleSwitcher(item);
           }}
         >
-          {item}
+          {item.toString()}
         </ListGroup.Item>
       ))}
     </ListGroup>

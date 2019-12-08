@@ -8,8 +8,6 @@ const colorGenerator = (theme, intensity) => {
       if (intensity < 128)
         color = `rgba(${intensity * 2},${intensity * 2}, 0, 1)`;
       else {
-        if (intensity * 2 - 255 > 240)
-          console.log(intensity * 2 - 255);
         color = `rgba(255,${intensity * 2 - 255}, 0, 1)`;
       }
       break;

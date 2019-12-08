@@ -18,4 +18,9 @@ const PlayToggler = ({ handlePlayClick, isPlayed }) => {
   );
 };
 
+PlayToggler.propTypes = {
+  isPlayed: PropTypes.bool.isRequired,
+  handlePlayClick: PropTypes.func.isRequired,
+};
+
 export default PlayToggler;

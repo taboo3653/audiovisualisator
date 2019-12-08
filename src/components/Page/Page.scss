@@ -1,7 +1,15 @@
 .Page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 802px;
+
   &__controlElements {
     display: flex;
+    width: 100%;
     justify-content: space-between;
+
     margin: 20px 0px;
   }
 }

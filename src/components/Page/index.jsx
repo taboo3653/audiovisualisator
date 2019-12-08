@@ -7,7 +7,7 @@ import PlayToggler from 'components/PlayToggler';
 import { ColorEnum, SizeEnum } from 'utils/values';
 import AudioAnalyser from 'utils/AudioAnalyser';
 
-import audioFile from '../../assets/audio/song1.mp3';
+import audioFile from '../../assets/audio/song2.mp3';
 import './Page.scss';
 
 class Page extends React.Component {
@@ -50,7 +50,11 @@ class Page extends React.Component {
     this.audioRef.current.play();
 
     this.interval = setInterval(() => {
-      const values = this.audioAnalyser.getByteFrequencyData();
+      const { size } = this.state;
+
+      const values = this.audioAnalyser.getByteFrequencyData(
+        size.getCount(),
+      );
 
       this.setState({ values });
     }, 70);
@@ -73,7 +77,6 @@ class Page extends React.Component {
               handlePlayClick={this.handlePlayClick}
               isPlayed={isPlayed}
             />
-            {/* <Button text="Play" onClick={this.handlePlayClick} /> */}
             <Switcher
               active={size}
               values={[
@@ -94,7 +97,7 @@ class Page extends React.Component {
             />
           </div>
 
-          <Visuliser theme={theme} values={values} />
+          <Visuliser theme={theme} values={values} size={size} />
         </div>
       </>
     );
