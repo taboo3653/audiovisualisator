@@ -1,12 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import ButtonBS from 'react-bootstrap/Button';
 
-const Button = ({ text, onClick }) => {
+import './Button.scss';
+
+const Button = ({ text, onClick, variant }) => {
   return (
-    <ButtonBS variant="primary" onClick={onClick}>
+    <ButtonBS className="Button" variant={variant} onClick={onClick}>
       {text}
     </ButtonBS>
   );
+};
+
+Button.propTypes = {
+  text: PropTypes.string,
+  onClick: PropTypes.func,
+  variant: PropTypes.string,
+};
+
+Button.defaultProps = {
+  text: '',
+  onClick: () => {},
+  variant: 'primary',
 };
 
 export default Button;

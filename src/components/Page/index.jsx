@@ -3,7 +3,9 @@ import React from 'react';
 import Switcher from 'components/Switcher';
 import Visuliser from 'components/Visualizer';
 import Button from 'components/Button';
+import PlayToggler from 'components/PlayToggler';
 import { ColorEnum, SizeEnum } from 'utils/values';
+import AudioAnalyser from 'utils/AudioAnalyser';
 
 import audioFile from '../../assets/audio/song1.mp3';
 import './Page.scss';
@@ -14,10 +16,18 @@ class Page extends React.Component {
     this.state = {
       theme: ColorEnum.RED,
       size: SizeEnum.SIZE1,
+      isPlayed: false,
       values: [],
     };
     this.audioRef = React.createRef();
-    // this.soundingAudioRef = React.createRef();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { isPlayed } = this.state;
+    if (prevState.isPlayed !== isPlayed) {
+      if (isPlayed) this.play();
+      else this.pause();
+    }
   }
 
   handleThemeSwitcher = theme => {
@@ -28,64 +38,42 @@ class Page extends React.Component {
     this.setState({ size });
   };
 
-  handlePlayClick = play => {
-    this.createAudioAnalizer();
-    this.audioRef.current.play();
-    // this.soundingAudioRef.current.play();
+  handlePlayClick = isPlayed => {
+    this.setState({ isPlayed });
   };
 
-  createAudioAnalizer() {
-    this.audioContext = new (window.AudioContext ||
-      window.webkitAudioContext)();
-    this.analyser = this.audioContext.createAnalyser();
-    this.analyser.smoothingTimeConstant = 0.2;
+  play = play => {
+    if (!this.audioAnalyser) {
+      this.audioAnalyser = new AudioAnalyser(this.audioRef.current);
+    }
 
-    this.analyser.fftSize = 512;
-    this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+    this.audioRef.current.play();
 
-    this.source = this.audioContext.createMediaElementSource(
-      this.audioRef.current,
-    );
-
-    this.analyser.connect(this.audioContext.destination);
-    this.source.connect(this.analyser);
-
-    setInterval(() => {
-      this.analyser.getByteFrequencyData(this.dataArray);
-      // const values = [...this.dataArray];
-
-      const subArraySize = Math.floor(this.dataArray.length / 144);
-      const subArrays = [];
-
-      for (let i = 0; i < 144; i += 1) {
-        subArrays[i] = this.dataArray.slice(
-          i * subArraySize,
-          i * subArraySize + subArraySize,
-        );
-      }
-
-      const values = subArrays.map(item => {
-        const sum = item.reduce((accumulator, currentValue) => {
-          return accumulator + currentValue;
-        }, 0);
-
-        return Math.round(sum / item.length);
-      });
+    this.interval = setInterval(() => {
+      const values = this.audioAnalyser.getByteFrequencyData();
 
       this.setState({ values });
     }, 70);
-  }
+  };
+
+  pause = () => {
+    this.audioRef.current.pause();
+    clearInterval(this.interval);
+  };
 
   render() {
-    const { theme, values, size } = this.state;
+    const { theme, values, size, isPlayed } = this.state;
     return (
       <>
         <audio ref={this.audioRef} src={audioFile} />
-        {/* <audio ref={this.soundingAudioRef} src={audioFile} /> */}
 
         <div className="Page">
           <div className="Page__controlElements">
-            <Button text="Play" onClick={this.handlePlayClick} />
+            <PlayToggler
+              handlePlayClick={this.handlePlayClick}
+              isPlayed={isPlayed}
+            />
+            {/* <Button text="Play" onClick={this.handlePlayClick} /> */}
             <Switcher
               active={size}
               values={[
